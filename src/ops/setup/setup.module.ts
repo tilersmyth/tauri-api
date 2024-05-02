@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SeederService } from './seeder.service';
-import { CatEntity } from '../../models/cat/cat.entity';
 import { TypeormService } from '../../typeorm/typeorm.service';
 import { ConfigModule } from '@nestjs/config';
+import { ApiKeyModule } from '../../models/api-key/api-key.module';
 
 @Module({
   imports: [
@@ -11,8 +10,7 @@ import { ConfigModule } from '@nestjs/config';
       useClass: TypeormService,
       imports: [ConfigModule.forRoot()],
     }),
-    TypeOrmModule.forFeature([CatEntity]),
+    ApiKeyModule,
   ],
-  providers: [SeederService],
 })
-export class SeederModule {}
+export class SetupModule {}
