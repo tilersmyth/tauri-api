@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CatEntity } from './cat.entity';
 import { Repository } from 'typeorm';
+import { CatDto } from './cat.dto';
 
 // const CATS: CatDto[] = [
 //   {
@@ -27,5 +28,12 @@ export class CatService {
 
   getCat(id: number) {
     return this.repo.findOneBy({ id });
+  }
+
+  create(input: CatDto) {
+    const cat = new CatEntity();
+    cat.name = input.name;
+    cat.hobby = input.hobby;
+    return this.repo.save(cat);
   }
 }
